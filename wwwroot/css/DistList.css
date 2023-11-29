@@ -1,0 +1,52 @@
+﻿.btn-dl{
+    padding:5px;
+}
+#imgexcelicon{
+    display:none;
+}
+#gvdistributionlist thead th, #gvdistributionlist tbody td,
+#tblphoneNumber thead th, #tblphoneNumber tbody td {
+    text-align: center !important;
+}
+.dataTables_length{
+    display:none;
+}
+.btn-delete, .btn-update, .btn-view {
+    background-image: url('../images/Empt2.png');
+    width: 80px;
+    height: 28px;
+    border-width: 0;
+    font-weight: bold;
+    color: white;
+}
+
+label.error-Label{
+    color:red;
+    font-weight:bold;
+    font-size:small;
+}
+
+#txtDistlistName-error, #FileUpload1-error {
+    margin-left: 10px;
+}
+
+#exist-err-label {
+    display: none;
+    position: absolute;
+    width: 50%;
+    right: 20%;
+}
+#FileUpload1{
+    width:175px;
+}
+#response {
+    color: darkblue;
+    font-size: small;
+    font-weight: bold;
+    position: absolute;
+    left: 40%;
+}
+#selectTODelete{
+    width:130px;
+    display:none;
+}

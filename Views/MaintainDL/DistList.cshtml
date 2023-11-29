@@ -1,0 +1,74 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails;
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+}
+
+<link href="~/css/DistList.css" rel="stylesheet" />
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+    </script>
+    <script src="~/js/DistList.js"></script>
+}
+
+
+<div id="Content2">
+    <div>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%;">
+            <tr>
+                <td class="smshead" align="center" colspan="4">
+                    Maintain Distribution Lists
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <div class="para" style="padding: 5px">
+                        Use this form to create, update or delete Distribution Lists. A Distribution list
+                        is used to send a single text message to more than one mobile phone.
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <input type="image" id="BtnNewDistList" class="btn-dl" src="~/images/btnCreateNew.png" alt="create new" onclick="openCreateDL()" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <input type="image" id="imgexcelicon" class="btn-dl" src="~/images/export.PNG" alt="create new" onclick="ExportDL()" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <input type="image" id="selectTODelete" class="btn-dl" src="~/images/btn_deleteSelected.png" alt="delete" onclick="DeleteSelected()" />
+                </td>
+            </tr>
+        </table>
+
+        <table id="distListTable" cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; padding:10px">
+            <tr align="left">
+                <td align="left" colspan="4">
+                    <table id="gvdistributionlist" width="100%" class="myGrid">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkSelectAllCheckboxes" />
+                                </th>
+                                <th>Listname</th>
+                                <th>Entries</th>
+                                <th>Action</th>
+                                <th>Update</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿@{
+    var FirstName = @Model?.FIRSTNAME;
+    var LastName = @Model?.LASTNAME;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMSControlPanel</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link href="~/css/global/Site.css" rel="stylesheet" />
+    <link href="~/css/global/Main.css" rel="stylesheet" />
+    <link href="~/css/global/mbTooltip.css" rel="stylesheet" />
+    <link href="~/css/global/jqueryslidemenu.css" rel="stylesheet" />
+    <link href="~/lib/datatable/datatables.min.css" rel="stylesheet" />
+    <link href="~/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+
+    <link href="~/css/global/Layout.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="container" id="dvContent">
+        <header>
+
+            <div id="dvheader">
+                <table style="width:100%;">
+                    <tr>
+                        <td style="display:inline-block">
+                            <img id="Image2" src="~/images/vm_logo_title.png" alt="logo" style="width:80%" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <label id="LabelUserName">Welcome @FirstName @LastName</label>
+                        </td>
+                        <td align="right">
+                            <span id="clock"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="wrap">
+                <ul class="navbar-native">
+                    <li id="DvGeneralView" class="arrowlistmenu">
+                        <a href="#">Send SMS<span class="arrow"></span></a>
+                        <ul>
+                            <li><a asp-controller="SendSmsText" asp-action="Index">Send SMS Text</a></li>
+                        </ul>
+                    </li>
+                    <li id="DvReports" class="arrowlistmenu">
+                        <a href="#">Distribution List<span class="arrow"></span></a>
+                        <ul>
+                            <li><a asp-controller="MaintainDL" asp-action="DistList">Maintain DL</a></li>
+                            <li><a asp-controller="DistList" asp-action="SendToDL">Send SMS to DL</a></li>
+                        </ul>
+                    </li>
+                    <li id="Div1" class="arrowlistmenu">
+                        <a href="#">Reporting<span class="arrow"></span></a>
+                        <ul>
+                            <li><a asp-controller="GeneralReport" asp-action="Report">General Reports</a></li>
+                            <li id="DvExport1"><a asp-controller="Export" asp-action="ExportMonthly">Export Excel</a></li>
+                        </ul>
+                    </li>
+                    <li id="DvAdmin" class="arrowlistmenu">
+                        <a href="#">Admin<span class="arrow"></span></a>
+                        <ul>
+                            <li><a asp-controller="Admin" asp-action="ManageUsers">Manage Users</a></li>
+                        </ul>
+                    </li>
+                    <li id="Li1" class="arrowlistmenu" data-toggle="tooltip" data-placement="top" title="Not Live" style="display:none">
+                        <a href="#">Inbox <span class="arrow"></span></a>
+                        <ul>
+                            <li><a href="#">Messages</a></li>
+                            <li><a href="#">Download Messages</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </header>
+
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <footer>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <div class="Copyright" style="padding:2px">
+                            <span style="font-size: 11px; font-family: Arial; font-weight: bold">
+                                Last modified
+                                by: Intranet Team 22/06/2016
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/lib/datatable/datatables.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+    <script src="~/js/global/Layout.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

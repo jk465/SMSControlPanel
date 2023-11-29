@@ -1,0 +1,123 @@
+﻿.editRow {
+    width: 100%; /* Set the width to 100% of the parent element */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+.row-select-div{
+    padding:5px;
+}
+/*#grAdmin {
+    table-layout:fixed;
+}*/
+/*#grAdmin thead th {
+    padding: 2px;
+}*/
+
+
+#grAdmin tbody td {
+    text-align: center;
+    font-weight: normal;
+    white-space: normal;
+    /*overflow:hidden;
+    text-overflow:ellipsis;*/
+}
+
+.td-error{
+    color:red;
+}
+.editBtn{
+    width:60px;
+}
+.deleteBtn {
+    width: 50px;
+}
+
+.ui-dialog-titlebar {
+    background-color: red;
+    color: white;
+}
+.error-label, .warning-label{
+    font-size: small;
+    font-weight: bold;
+    color: red;
+}
+#colleague-tbody{
+    text-align:center;
+}
+.name-link {
+    border: none;
+    background: none;
+    color: blue!important;
+    text-decoration: underline;
+    cursor: pointer;
+    width: 50%;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0 5px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+    .page-link:hover {
+        background-color: #cccccc;
+    }
+
+    .page-link[data-page="prev"],
+    .page-link[data-page="next"] {
+        background-color: #f5f5f5;
+        border-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+
+        .page-link[data-page="prev"]:hover,
+        .page-link[data-page="next"]:hover {
+            background-color: #f5f5f5;
+        }
+
+        .page-link[data-page="prev"]:before {
+            content: "\2039"; /* Unicode character for "left single angle quotation mark" */
+            margin-right: 5px;
+        }
+
+        .page-link[data-page="next"]:after {
+            content: "\203a"; /* Unicode character for "right single angle quotation mark" */
+            margin-left: 5px;
+        }
+
+    .page-link.active {
+        background-color: #333333;
+        color: #fff;
+        border-color: #333333;
+    }
+
+        .page-link.active:hover {
+            background-color: #333333;
+        }
+
+    /* Optional: Styling for disabled link */
+    .page-link.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+    }

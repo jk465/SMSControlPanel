@@ -1,0 +1,24 @@
+﻿.export-table{
+    font-weight:bold;
+    color:black;
+    width:60% !important;
+    margin:auto;
+    text-align:center;
+}
+    .export-table thead th {
+        text-align: center !important;
+    }
+
+.no-width {
+    width: 0;
+}
+
+.btn-export {
+    background-image: url('../images/Btn_Export.png');
+    border-width: 0;
+    width: 90px;
+    height: 29px;
+}
+table.dataTable tbody td{
+    padding:5px !important;
+}

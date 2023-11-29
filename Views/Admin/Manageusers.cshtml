@@ -1,0 +1,211 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails;
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+}
+
+
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+    </script>
+    <script src="~/js/Admin.js"></script>
+
+}
+<link href="~/css/Admin.css" rel="stylesheet" />
+
+<div id="Content2">
+    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+        <tr>
+            <td class="Tablebody" valign="top" width="100%">
+                <table width="100%" border="0">
+                    <tr>
+                        <td class="Tabletitle" align="center" bgcolor="#f9f9f9" colspan="1">
+                            User Management
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <table id="TableUserSearch" width="100%">
+                                    <tr>
+                                        <td id="Td1" colspan="2" style="height: 22px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <td id="Tdfirstname" width="40%" align="right">
+                                            <label ID="LblFirstname" style="font-family: Arial; font-size: small; font-weight: bold;">User FirstName</label>
+                                        </td>
+                                        <td id="Td2" width="60%" align="left">
+                                            <input ID="TxtFirstname" type="text" style="width: 200px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="Td3" width="40%" align="right">
+                                            <label ID="LblLastname" style="font-family: Arial; font-size: small; font-weight: bold;">User LastName</label>
+                                        </td>
+                                        <td id="Td4" width="60%" align="left">
+                                            <input ID="TxtLastname" type="text" style="width: 200px;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="Td5" colspan="2">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="Td6" colspan="2" align="center">
+                                            <input type="image" ID="BtnSearch" src="~/images/btn_searchf.png" alt="Search" style="height: 3%;" />
+                                            &nbsp;
+                                            <input type="image" ID="btnInsert" src="~/images/btn_InserUser1.png" alt="Insert User" style="height: 3%;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@*<div class="row-select-div">
+    <select id="maxRows">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="5000">Show All</option>
+    </select>
+</div>*@
+
+<table id="grAdmin" class="myGrid" style="font-size: small; color: black;  font-family: Arial; table-layout:fixed;" >
+    <thead>
+        <tr>
+            <th hidden>
+                <label>ID</label>
+            </th>
+            <th width="62">
+                <label>Logon</label>
+            </th>
+            <th width="100">
+                <label>First Name</label>
+            </th>
+            <th width="75">
+                <label>Last Name</label>
+            </th>
+            <th width="50">
+                <label>Cost Centre</label>
+            </th>
+            <th width="65">
+                <label>Department ID</label>
+            </th>
+            <th width="150">
+                <label>Department</label>
+            </th>
+            <th hidden>
+                <label>Role ID</label>
+            </th>
+            <th width="80">
+                <label>Phone Number</label>
+            </th>
+            <th width="80">
+                <label>Team</label>
+            </th>
+            <th width="70">
+                <label>Role</label>
+            </th>
+            <th width="60">
+                <label>Edit</label>
+            </th>
+            <th width="60">
+                <label>Delete</label>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="grAdminBody">
+        @foreach (var data in ViewBag.UserData)
+        {
+            <tr>
+                <td hidden>@data.ID</td>
+                <td>@data.logonid</td>
+                <td>@data.firstname</td>
+                <td>@data.lastname</td>
+                <td>@data.costcentre</td>
+                <td>@data.departmentid</td>
+                <td>@data.department</td>
+                <td hidden>@data.r_role</td>
+                <td>@data.phonenumber</td>
+                <td>@data.Team_Name</td>
+                <td>@data.rol_role</td>
+                <td><button class="editBtn">Edit</button></td>
+                <td><button class="deleteBtn">Delete</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class='pagination-container'>
+    <nav>
+        <ul class="pagination" style="cursor:pointer;">
+        </ul>
+    </nav>
+</div>
+
+<div id="Findser" class="panel" style="display: none;">
+    <table width="100%" border="0">
+        <tr>
+            <td class="instructions"><b>Instructions</b><br />Please enter the first few letters of the preferred user's First name or Last name and click <b>Search</b><br /></td>
+        </tr>
+        <tr>
+            <td>
+                <table class="form-table">
+                    <tr>
+                        <td style="width:100px"><strong>First name</strong></td>
+                        <td style="width:100px"><strong>Last name</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="width:100px">
+                            <input type="text" id="txtfname">
+                        </td>
+                        <td style="width:100px">
+                            <input type="text" id="txtlname">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" ID="btnSearchUser" onclick="SearchUser()" value="Search" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="error-label">Please enter either firstname or lastname to search.</span>
+                <span class="warning-label">No User Found!!</span>
+            </td>
+        </tr>
+    </table>
+    <div id="colleage-content">
+        <table>
+            <tr id="rwMsg">
+                <td>
+                    Please select the user from the following list<br />
+                    If not listed, please ask the user to register
+                </td>
+            </tr>
+        </table>
+        <table class="myGrid">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Login</th>
+                </tr>
+            </thead>
+            <tbody id="colleague-tbody">
+            </tbody>
+        </table>
+    </div>
+</div>

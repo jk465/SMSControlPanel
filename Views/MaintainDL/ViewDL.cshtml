@@ -1,0 +1,61 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.ViewModel.UserViewModel
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model.User);
+    var listName = ViewData["ListName"].ToString();
+
+}
+
+<link href="~/css/DistList.css" rel="stylesheet" />
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+
+        function getListName() {
+            var listName = '@listName';
+            return listName;
+        }
+    </script>
+    <script src="~/js/DistList.js"></script>
+}
+
+<div id="Content2">
+    <div id="UpnlPhoneDisplay">
+        <table cellspacing="15" cellpadding="0" border="0" align="center" style="width: 100%;">
+            <tr>
+                <td class="smshead" align="center" colspan="4">
+                    Distribution List Numbers
+                    <br />
+                </td>
+            </tr>
+        </table>
+        <div>
+            <table id="tblphoneNumber" cellspacing="15" cellpadding="0" border="0" align="center" style="width: 50%">
+                <tr align="left">
+                    <td align="left" colspan="4">
+                        <table id="gvdistlistmembers" class="myGrid">
+                            <thead>
+                                <tr>
+                                    <th>PhoneNumbers</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%">
+                <tr>
+                    <td align="center">
+                
+                        <input type="image" id="btn-back" src="~/images/btn_back.png" alt="back" onclick="closeModel()" />
+                    </td>
+                
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

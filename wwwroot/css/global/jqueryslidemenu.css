@@ -1,0 +1,117 @@
+﻿.jqueryslidemenu {
+    font: normal 12px Arial, Helvetica, sans-serif;
+    background: #FFFFFF;
+    color: #CC0000;
+    width: 100%;
+}
+
+    .jqueryslidemenu ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font: normal 12px Arial, Helvetica, sans-serif;
+        background: #FFFFFF;
+        color: #CC0000;
+    }
+
+        /*Top level list items*/
+        .jqueryslidemenu ul li {
+            position: fixed;
+            display: Block;
+            font: normal 12px Arial, Helvetica, sans-serif;
+            background: #FFFFFF;
+            color: #CC0000;
+        }
+
+            /*Top level menu link items style*/
+            .jqueryslidemenu ul li a {
+                display: block;
+                font: normal 12px Arial, Helvetica, sans-serif;
+                background: #FFFFFF;
+                color: #CC0000;
+                border-right: 1px solid #778;
+                color: #CC0000;
+                text-decoration: none;
+                border: 1px inset #778;
+            }
+
+            * html .jqueryslidemenu ul li a { /*IE6 hack to get sub menu links to behave correctly*/
+                display: inline-block;
+            }
+
+                .jqueryslidemenu ul li a:link, .jqueryslidemenu ul li a:visited {
+                    font: normal 12px Arial, Helvetica, sans-serif;
+                    background: #FFFFFF;
+                    color: #CC0000;
+                }
+
+                .jqueryslidemenu ul li a:hover {
+                    background: #CC0000; /*tab link background during hover state*/
+                    display: block;
+                    color: white;
+                    position: relative;
+                    z-index: auto;
+                }
+
+            /*1st sub level menu*/
+            .jqueryslidemenu ul li ul {
+                position: absolute;
+                left: 15;
+                display: block;
+            }
+
+                /*Sub level menu list items (undo style from Top level List Items)*/
+                .jqueryslidemenu ul li ul li {
+                    display: list-item;
+                    float: none;
+                }
+
+                    /*All subsequent sub menu levels vertical offset after 1st level sub menu */
+                    .jqueryslidemenu ul li ul li ul {
+                        top: 0;
+                    }
+
+                    /* Sub level menu links style */
+                    .jqueryslidemenu ul li ul li a {
+                        display: inline;
+                        font: normal 12px Arial, Helvetica, sans-serif;
+                        background: #FFFFFF;
+                        color: #CC0000;
+                        width: 125px; /*width of sub menus*/
+                        padding: 5px;
+                        margin: 0;
+                        border-top-width: 0;
+                        border-bottom: 1px solid gray;
+                    }
+
+                        .jqueryslidemenu ul li ul li a:hover {
+                            /*sub menus hover style*/
+                            background: #CC0000; /*tab link background during hover state*/
+                            display: block;
+                            color: white;
+                            width: 125px;
+                        }
+
+                        .jqueryslidemenu ul li ul li a:visited {
+                            width: 125px;
+                            font-weight: bold;
+                        }
+
+                        .jqueryslidemenu ul li ul li a:visited, a:hover {
+                            width: 125px;
+                            font-weight: bold;
+                        }
+
+/* ######### CSS classes applied to down and right arrow images  ######### */
+
+.downarrowclass {
+    position: absolute;
+    top: 12px;
+    right: 7px;
+}
+
+.rightarrowclass {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+}

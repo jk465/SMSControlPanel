@@ -1,0 +1,108 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails;
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+    var listName = ViewData["ListName"].ToString();
+}
+
+<link href="~/css/DistList.css" rel="stylesheet" />
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+
+        $(function () {
+            var listName = '@listName';
+            console.log(listName);
+            $('#txtDistlistName').val(listName);
+        })
+
+    </script>
+    <script src="~/js/DistList.js"></script>
+}
+
+
+<div id="Content2">
+    <div>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%;">
+            <tr>
+                <td>
+                    <label id="lblheading" class="smshead" style="display:block;width:887px;">Update Distribution List</label>
+                </td>
+            </tr>
+        </table>
+        @*<table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%">
+                <tr>
+                    <td align="left">
+                        <div id="desc">
+                            <p class="para" style="padding:6px;">
+                                Upload a new distribution list by selecting a text file or CSV file containing the
+                                numbers you wish to add, then enter the name for your list and press the "Create
+                                New List" button. <b>NB:</b> Each number in the text file must be on a new line
+                                and must be in International format. E.G. 441234567890 is correct, 4401234567890
+                                or 01234567890 is incorrect.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>*@
+        <br />
+        <form id="dl-form">
+            <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; padding:10px;">
+                <tr align="left">
+                    <td style="width:36%">
+                        <label id="lblUpload" class="label">Upload File Location</label>
+                        <label id="lblUploadStar" style="color:red;">*</label>
+                    </td>
+                    <td>
+                        <input type="file" id="FileUpload1" name="FileUpload1" />
+                    </td>
+                </tr>
+                <tr align="left">
+                    <td>
+                        <label id="lblCmpnyName" class="label">Department Name</label>
+                    </td>
+                    <td>
+                        <input type="text" id="txtCompany" class="textmedium" readonly style="margin-top:5px;width:168px;" />
+                    </td>
+                </tr>
+                <tr align="left">
+                    <td>
+                        <label id="lblUsername" class="label">Username</label>
+                    </td>
+                    <td>
+                        <input type="text" id="txtUsername" class="textmedium" readonly style="margin-top:5px;width:168px;" />
+                    </td>
+                </tr>
+                <tr align="left">
+                    <td>
+                        <label id="lblDLName" class="label">DistList Name</label>
+                        <label id="lblDLNameStar" style="color:red;">*</label>
+                    </td>
+                    <td>
+                        <input type="text" id="txtDistlistName" name="txtDistlistName" class="textmedium" maxlength="20" style="margin-top:5px;width:168px;" />
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <span id="exist-err-label" class="error-Label">
+                    Distribution List Name already Exists. Please choose update list for modifications to existing list
+                </span>
+                <span id="response"></span>
+            </div>
+
+            <table cellspacing="0" cellpadding="2" border="0" style="position: relative; left: 37%; margin-top: 30px; margin-bottom: 20px;">
+                <tr>
+                    <td>
+                        @*<button type="button" id="btn-create" class="btngetdistlist" onclick="createDL()">Create List</button>*@
+                        <button type="button" id="btn-update" class="btngetdistlist" onclick="UpdateDL()">Update List</button>
+                        <button type="button" id="btn-cancel" class="btngetdistlist" onclick="closeModel()">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

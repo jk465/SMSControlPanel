@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <style type="text/css">
+        .unauthrzd {
+            padding: 0 0 0 250px;
+        }
+
+        #dvContent {
+            width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: White;
+            height: 600px;
+        }
+    </style>
+</head>
+<body bgcolor="#E7E7E7">
+    <form id="form1" runat="server">
+
+        <div id="dvContent">
+            <div style="background-color:White;">
+                <table style="width: 50%">
+                    <tr>
+                        <td>
+                            <img src="~/images/vm_logo (2).png" alt="logo" style="width:25%; border-Right:1.5px solid; border-color:#E50000" />
+
+                            <label style="font-size:30px; font-weight:bold; color:black; font-style:italic;">SMS Control Panel</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <p>
+                &nbsp;
+            </p>
+            <p>
+                &nbsp;
+            </p>
+            <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+            <p>
+                &nbsp;
+            </p>
+
+            <div style="width:50%;margin-left:auto;margin-right:auto; background-color:White">
+
+                <div id="Div2" align="center" runat="server" class="arrowlistmenu">
+                    <ul class="accordion">
+                        <li id="Li2">
+                            <h3 class="headerbar" style="color:Red">
+                                Following could be the reasons if you are viewing this page:
+                            </h3>
+                            <br />
+                            <ul>
+                                <li class="lifont" style="color:Red"><a>Session  Expired!!</a></li>
+                                <li class="lifont" style="color:Red"><a>You are Unauthorized to view this page!!</a></li>
+                                <li class="lifont" style="color:Red"><a>Please Close the Browser and try again!!</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="lifont">
+                        <a href="../Base" >CLICK HERE</a>
+                        <span>to reload the application</span>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>

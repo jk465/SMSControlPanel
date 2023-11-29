@@ -1,0 +1,128 @@
+﻿.error-Labels{
+    color:red;
+    font-size:small;
+    font-weight:bold;
+}
+
+.ui-dialog-titlebar{
+    background-color: red;
+    color: white;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.chgtext {
+    font-family: sans-serif !important;
+}
+
+.auto-style1 {
+    height: 52px;
+}
+
+.auto-style2 {
+    height: 52px;
+    width: 163px;
+}
+
+.auto-style3 {
+    width: 163px;
+}
+
+.auto-style14 {
+    width: 163px;
+    height: 36px;
+}
+
+.auto-style15 {
+    height: 36px;
+}
+
+.auto-style16 {
+    width: 163px;
+    height: 109px;
+}
+
+.auto-style17 {
+    height: 109px;
+}
+
+#popupdiv {
+    width: 400px;
+    display: none;
+    height: 600px;
+    z-index: 50000;
+}
+
+#date {
+    display: none;
+}
+
+#time {
+    display: none;
+}
+
+#number {
+    display: none;
+}
+
+#name {
+    display: none;
+}
+
+.style1 {
+    width: 112px;
+}
+
+#hidetxtlabl{
+    display: none;
+}
+
+#reasoncount{
+    display:none;
+}
+
+#Txtpopupreason{
+    display:none;
+}
+
+.ui-datepicker{
+    width:12%;
+}
+
+label.error-Label{
+    font-weight:bold;
+    font-size: small;
+    color:red;
+}
+#TxtOriginator-error {
+    position: absolute;
+    margin-top: 25px;
+    margin-left: -255px;
+}
+
+#txtPhoneNumber-error{
+    position:absolute;
+    margin-top:70px;
+    margin-left:10px;
+}
+
+#ddrTeam-error, #ddrMsgTitle-error, #txtMessage-error {
+    margin-left: 10px;
+}
+
+#txtMessage-error{
+    position:absolute;
+    margin-top:40px;
+}
+
+/*table {
+    border-collapse: initial;
+}*/
+
+#msg-response {
+    position: absolute;
+    left: 45%;
+    margin-top: -30px;
+}

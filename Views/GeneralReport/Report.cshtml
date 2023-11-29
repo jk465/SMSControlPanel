@@ -1,0 +1,232 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails;
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+}
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+    </script>
+    <script src="~/js/GeneralReports.js"></script>
+
+}
+<link href="~/css/GeneralReports.css" rel="stylesheet" />
+
+<div id="Content2">
+    <table cellspacing="0" cellpadding="0" border="0" align="center" style="width:100%;">
+        <tr>
+            <td class="smshead" align="center" colspan="4">General Reports</td>
+        </tr>
+    </table>
+
+    <table id="tblUsersDept" height="200px" runat="server" style="border-style: ridge; width:90%;
+        border-bottom-width:medium; margin-left:auto; margin-right:auto; border-width:1.5px; margin-top:10px; display:none;">
+        <tr>
+            <td class="panel" align="center" style="vertical-align: top; border-width:1px ;width: 400px; height:200px; border-style: solid;">
+                <label id="lblDept" style="font-weight: bold; color: Crimson">Departments</label>
+                <br />
+                <div id="pnlContainerDeptView" style="height:150px; width:400px;">
+                    <table id="GridDeptView" class="myGrid" cellpadding="0" cellspacing="0"
+                           style="font-size:small; border-width:2px; font-family:Arial;">
+                        <thead class="GVFixedHeader" style="align-content:center;">
+                            <tr>
+                                <th style="width:25px;">
+                                    <input type="checkbox" id="chkboxSelectAll" onchange="" />
+                                </th>
+                                <th style="width:80px;">
+                                    <label>Department ID</label>
+                                </th>
+                                <th>
+                                    <label>Department</label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="DepartmentTablebody">
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+            <td class="panel" align="center" style="vertical-align: top; width: 400px; border-style: solid; border-width: 1px">
+                <label id="lblDeptUsers" style="font-weight: bold; color: Crimson">Departments users</label>
+                <br />
+                <span id="ErrlblDeptUser">Please Select at least one Department</span>
+                <div id="pnlContainerDeptUsersView" style="height:150px; width:400px;">
+                    <table id="GridDeptUsersView" class="myGrid" cellpadding="0" cellspacing="0"
+                           style="font-size:small; border-width:2px; font-family:Arial;">
+                        <thead class="GVFixedHeader" style="align-content:center;">
+                            <tr>
+                                <th style="width:25px;">
+                                    <input type="checkbox" id="chkboxSelectAllUser" />
+                                </th>
+                                <th style="width:60px;">
+                                    <label>EmpID</label>
+                                </th>
+                                <th style="width:80px;">
+                                    <label>Name</label>
+                                </th>
+                                <th>
+                                    <label>Department</label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="DeptUserTablebody">
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="errDiv">
+        <div id="errlblDept" class="errorLabel left" style="display:none;">Please select at least one Department</div>
+        <div id="errlblDeptuser" class="errorLabel right" style="display:none;">Please select at least one User</div>
+    </div>
+    <br />
+    <table align="center" style="border-style: solid; border-color:#EAEAEA">
+        <tr>
+            <td><label id="lblFromDate" style="font-weight:bold;">From</label></td>
+            <td>
+                <input type="text" id="txtFromDate" style="width:75px;" autocomplete="off" />
+                <img src="~/images/calendar-icon.png" alt="FromDate" class="Calndrimage" id="imgFromdate" />
+            </td>
+            <td><label id="lbToDate" style="font-weight:bold;">To</label></td>
+            <td>
+                <input type="text" id="txtToDate" style="width:75px;" autocomplete="off" />
+                <img src="~/images/calendar-icon.png" alt="ToDate" class="Calndrimage" id="imgToDate" />
+            </td>
+        </tr>
+    </table>
+    <div class="errDiv errDatediv w-25">
+        <div id="errlblFromdate" class="errorLabel errDatepadding" style="display:none;">Select From Date</div>
+        <div id="errlblTodate" class="errorLabel errDatepadding" style="display:none;">Select To Date</div>
+    </div>
+
+    <table align="center" style="margin-top:1%;">
+        <tr align="center">
+            <td>
+                <input type="image" src="~/images/btn_Submit.png" alt="Submit Button" id="submit" onclick="SubmitReport()" />
+                <input type="image" src="~/images/btnClear.png" alt="Clear Button" id="clear" onclick="reset()"  />
+            </td>
+        </tr>
+    </table>
+
+    <table class="Reportresult pt-2" style="display:none;">
+        <tr>
+            <td>
+                <div id="UpnlGridDisplay">
+                    <table>
+                        <tr>
+                            <td width="215px" align="center">
+                                <label class="errorLabel" id="SMSUsage">SMSUsage</label>
+                            </td>
+                            <td colspan="16"></td>
+                            <td align="right">
+                                <input type="image" id="imgexcelbtn" src="~/images/export.PNG" alt="export excel" onclick="exportsmsReport()" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="pb-2 w-100">
+                        <tr>
+                            <td>
+                                <div>
+                                    <table id="GridViewReportResult" class="myGrid w-100" CellPadding="0" CellSpacing="0" style="text-align:center;">
+                                        <thead>
+                                            <tr>
+                                                <th>Emp ID</th>
+                                                <th>User Name</th>
+                                                <th>Total Messages</th>
+                                                <th>Failed Messages</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="Reportresult" style="display:none;">
+        <tr>
+            <td>
+                <div id="UpnlGridDisplay">
+                    <table>
+                        <tr>
+                            <td width="215px" align="center">
+                                <label class="errorLabel" id="SMSUsage">SMSUsageDetail</label>
+                            </td>
+                            <td colspan="16"></td>
+                            <td align="right">
+                                <input type="image" id="imgexcelbtnforsmsdetail" src="~/images/export.PNG" alt="export excel" onclick="exportsmsDetailReport()" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="pb-2 w-100">
+                        <tr>
+                            <td>
+                                <div>
+                                    <table id="GridViewSmsDetail" class="myGrid" CellPadding="0" CellSpacing="0" style="text-align:center;width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sent By</th>
+                                                <th>Messages</th>
+                                                <th>Date Time sent</th>
+                                                <th>Message Detail</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="div-center">
+        <span id="NoRecordFound" class="errorLabel" style="display:none;">No Record Found!!!</span>
+    </div>
+
+    <div id="div_popup" class="popupclass">
+        <div id="failedmsgsmodalpopup" class="modalBackground">
+            <div id="popuppanelfailedmsgs" style="background-color:white;">
+                <div id="img-title">
+                    <table cellspacing="0" cellpadding="0" border="0" align="center"
+                           style="background-repeat: repeat-x; background-position: right; color: white; width:90%;">
+                        <tr style="height:25px;">
+                            <th align="center" colspan="3">
+                                <span class="header-span"><img src="~/images/HeaderImageSize.jpg" alt="header" /> SMS Detailed Usage</span>
+                            </th>
+                        </tr>
+                    </table>
+                    <span id="model-close"><input type="image" src="~/images/grayCloseIcon.png" onclick="closeModal()" id="imgCLOSE" style="text-align:right;height:23px;width:23px;" /></span>
+                </div>
+                <div id="secondgrid">
+                    <table cellspacing="15" cellpadding="0" border="0" align="center" style="width: 90%;">
+                        <tr>
+                            <td>
+                                <table id="GridViewFailedReport" class="myGrid" style="align-items:center; width:100%; font-family:Arial, Helvetica, sans-serif;">
+                                    <thead>
+                                        <tr>
+                                            <th>Template Name</th>
+                                            <th>Phone Number</th>
+                                            <th>Message Status</th>
+                                            <th>Date Time Sent</th>
+                                            <th>Message Content</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

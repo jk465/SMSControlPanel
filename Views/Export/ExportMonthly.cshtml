@@ -1,0 +1,36 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails;
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+}
+<link href="~/css/ExportExcel.css" rel="stylesheet" />
+
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+    </script>
+    <script src="~/js/ExportExcel.js"></script>
+
+}
+
+<div id="Content2">
+    <div id="gvclass">
+        <div id="UpdatePanel1">
+            <table id="grAdmin" class="myGrid export-table">
+                <thead>
+                    <tr>
+                        <th class="MonthsStyle">Months
+                        <th>Export</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,374 @@
+﻿@using Newtonsoft.Json;
+@model SMSControlPanel.Models.UserDetails
+
+@{
+    var userviewmodel = JsonConvert.SerializeObject(Model);
+}
+<link href="~/css/SendSmsText.css" rel="stylesheet" />
+<link href="~/css/SendToDL.css" rel="stylesheet" />
+
+@section Scripts{
+    <script type="text/javascript">
+        function getUser() {
+            var user = @Html.Raw(userviewmodel);
+            return user;
+        }
+    </script>
+    <script src="~/js/Sendsmstext.js"></script>
+    <script src="~/js/SendToDL.js"></script>
+}
+
+
+<div id="Content2">
+    <div>
+        <table cellspacing="0" cellpadding="0" border="0" align="center" style="width:100%;">
+            <tr>
+                <td class="smshead" align="center" colspan="4">Send a Text Message to a Distribution List</td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top" style="padding:12px; font-size:14px"><strong>All fields are mandatory</strong></td>
+            </tr>
+        </table>
+        <form id="smsToDL">
+            <table id="table_content" style="width:100%;" cellspacing="20" cellpadding="0" border="0" align="center">
+                <tr id="originator" style="vertical-align:top">
+                    <td align="left" valign="top" class="auto-style3">
+                        <strong>Originator</strong>
+                    </td>
+                    <td align="left" valign="top">
+                        <input id="TxtOriginator" name="TxtOriginator" type="text" maxlength="11" class="textmedium" style="width: 245px; height: 20px" />
+                        @* <label id="lbldisplaymsg" style="width:300px;font-size:smaller;">This will appear on the recipient's phone as the sender of the message.</label>*@
+                    </td>
+                </tr>
+                <tr id="DL" style="vertical-align:top">
+                    <td align="left" colspan="1" class="auto-style3">
+                        <label id="Distribution-List" class="label">Distribution List</label>
+                    </td>
+                    <td align="left">
+                        <select id="DistList" name="DistList" style="width: 250px; height: 40px;" class="dropdown">
+                            <option value="">--Please Select List--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="ddrteamrow" style="vertical-align:top">
+                    <td align="left" colspan="1" class="auto-style3">
+                        <label id="Team" class="label">Team</label>
+                    </td>
+                    <td align="left">
+                        <select id="ddrTeam" name="ddrTeam" style="width: 250px; height: 40px;" class="dropdown" onchange="OnTeamchange()">
+                            <option value="0">--Select Team--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="ddrtitle" style="vertical-align:top">
+                    <td align="left" colspan="1" class="auto-style14">
+                        <label id="MessageTitle" class="label">MessageTitle</label>
+                    </td>
+                    <td align="left" class="auto-style15">
+                        <select id="ddrMsgTitle" name="ddrMsgTitle" style="width: 250px; height: 40px; margin-bottom:10px;" class="dropdown" disabled onchange="OnMsgTitleChange()">
+                            <option value="0">--Select Message Title--</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr id="ddrmsg" style="vertical-align:top">
+                    <td align="left" class="auto-style3">
+                        <strong>SMS Message</strong>
+                    </td>
+                    <td align="left">
+                        <textarea id="txtMessage" name="txtMessage" maxlength="400" class="smstextarea" rows="4" cols="3"></textarea>
+                        &nbsp;&nbsp;
+                        <label id="lblsmsmsg" class="error-Labels" hidden>No message provided</label>
+                    </td>
+                </tr>
+
+                <tr id="ddrmsgnopopup" style="vertical-align:top">
+                    <td align="left" class="auto-style3">
+                        <strong>SMS Message</strong>
+                    </td>
+                    <td align="left">
+                        <textarea id="txtnopopup" maxlength="160" class="smstextarea" rows="4" cols="3"></textarea>
+                    </td>
+                </tr>
+                <tr id="charlength">
+                    <td align="left" class="auto-style3">
+                        &nbsp;
+                    </td>
+                    <td align="left">
+                        <input id="txtcountremcharacters" value="160" readonly type="text" class="textmedium" style="width: 25px;" />
+                        <label id="lblCharAvlble">Characters Available</label>
+                    </td>
+                </tr>
+            </table>
+            <table style="left: 200px; position: relative;">
+                <tr>
+                    <td>
+                        <input type="image" src="~/images/btnSendMessage.png" alt="send sms" onclick="SendMessageToDL(event)" />
+                    </td>
+                    <td>
+                        <input type="hidden" id="hdnsubmit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div>
+            <label id="msg-response" class="error-Label"></label>
+        </div>
+        <table style="width:100%;" cellspacing="20" cellpadding="0" border="0" align="center">
+            <tr>
+                <td align="left" colspan="1" class="auto-style3">
+                    <label id="lblTemplate" class="label" hidden>Template</label><br />
+                </td>
+                <td align="left">
+                    <select id="drdptemplate" class="dropdown" style="width:250px;" hidden onchange="">
+                        <option value="5">---Select Template---</option>
+                    </select><br />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" width="150px">
+                    <label id="lbltypeofcomn" class="label" hidden>Type of Communication</label>
+                    <label id="lbltypestar" style="color:red;" hidden>*</label><br />
+                </td>
+                <td align="left">
+                    <span id="radcommunication" hidden>
+                        <label><input type="radio" name="radcommunication" value="True" style="vertical-align:middle; margin-right:5px;" />Internal</label>
+                        <label>
+                            <input type="radio" name="radcommunication" value="False"
+                                   style="vertical-align:middle; margin-right:5px; margin-left:5px;" />Customer Facing
+                        </label>
+                    </span>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" id="hdnname" />
+                    <input type="hidden" id="hdndate" />
+                    <input type="hidden" id="hdntime" />
+                    <input type="hidden" id="hdnphnumber" />
+                    <input type="hidden" id="hdnsmsmessage" />
+                    <input type="hidden" id="hdnmessage" />
+                    <input type="hidden" id="hdnrefno" />
+                    <input type="hidden" id="hdnreason" />
+                    <input type="hidden" id="hdnkellytime" />
+                    <input type="hidden" id="hdnfromkelly" />
+                    <input type="hidden" id="hdnextn" />
+                    <input type="hidden" id="hdneagentname" />
+                    <input type="hidden" id="hdnstoretxt" />
+                    <input type="hidden" id="hdnaddress1text" />
+                    <input type="hidden" id="hdnaddress2text" />
+                    <input type="hidden" id="hdnpostcode" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="popupdiv" class="popupclass">
+        <table>
+            <tr id="lblMsg">
+                <td colspan="2">
+                    <textarea id="Txtmsglabel" readonly style="width:300px;"></textarea>
+                </td>
+            </tr>
+            <tr id="refno">
+                <td class="style1">
+                    Reference Number
+                </td>
+                <td>
+                    @*<asp:TextBox ID="Txtpopuprefno" onkeypress="return isNumber(event)" MaxLength="8"
+                        runat="server"></asp:TextBox>*@
+
+                    <input type="text" id="Txtpopuprefno" maxlength="8" />
+                </td>
+            </tr>
+
+            <tr id="tragentname">
+                <td class="style1">
+                    Agent Name
+                </td>
+                <td>
+                    @*<asp:TextBox ID="txtagentname" runat="server" onkeypress="return onlyalphabets(event, this);" value=""
+                        OnClientClick="return Validate()" MaxLength="15"></asp:TextBox>*@
+
+                    <input type="text" id="txtagentname" maxlength="15" />
+                </td>
+            </tr>
+
+            <tr id="Trextn">
+                <td class="style1">
+                    Extention Number
+                </td>
+                <td>
+                    @*<asp:TextBox ID="txtextn" onkeypress="return isNumber(event)" MaxLength="4"
+                        runat="server"></asp:TextBox>*@
+
+                    <input type="text" id="txtextn" maxlength="4" />
+                </td>
+            </tr>
+
+            <tr id="name">
+                <td class="style1">
+                    Name
+                </td>
+                <td>
+                    @*<asp:TextBox ID="Txtpopupname" runat="server" onkeypress="return onlyalphabets(event, this);" value=""
+                        Enabled="false" MaxLength="11" onchange="checkmsgname(this)" onfocus="checkmsgname(this)"
+                        onkeyup="checkmsgname(this)" OnClientClick="return Validate()"></asp:TextBox>*@
+
+                    <input type="text" id="Txtpopupname" />
+                </td>
+            </tr>
+            <tr id="hidetxtlabl">
+                <td>
+                </td>
+                <td align="left">
+                    @*<asp:TextBox ID="Txtnamecount" ReadOnly="true" name="chars_available" size="1" value="2"
+                                     runat="server" Width="16px" Visible="True" CssClass="textmedium"></asp:TextBox>
+                        <asp:Label ID="lblnamecount" runat="server" Visible="True" Text="Characters Available"
+                                   Style="font-size: smaller"></asp:Label>*@
+
+                    <input type="text" id="Txtnamecount" name="chars_available" value="2" class="textmedium" readonly style="width:16px;" />
+                    <label id="lblnamecount" style="font-size:smaller;">Characters Available</label>
+                </td>
+            </tr>
+            <tr id="date">
+                <td class="style1">
+                    Date
+                </td>
+
+                <td>
+                    @*<asp:TextBox ID="Txtpopupdate" runat="server" MaxLength="10" value="" Enabled="false" CssClass="disable_past_dates"
+                                     onkeydown="return false;"></asp:TextBox>
+                        <%--  onkeyup="Dateblock()" onchange="Dateblock()" onfocus="Dateblock()"--%>
+
+                        <AJAX:CalendarExtender ID="CalendarExtenderpopupdate" TargetControlID="Txtpopupdate" Format="dd/MM/yyyy"
+                                               runat="server" />
+                        <AJAX:FilteredTextBoxExtender ID="FilteredTxtExtenderpopupdate" runat="server" TargetControlID="Txtpopupdate"
+                                                      ValidChars="1234567890/-" />*@
+                    <input type="text" id="Txtpopupdate" autofocus />
+                </td>
+            </tr>
+
+            <tr id="time">
+                <td class="style1">
+                    Time
+                </td>
+                <td>
+                    @*<asp:TextBox ID="Ddlpopuptime" value="AM-PM" runat="server" MaxLength="9" Enabled="true" Visible="true"></asp:TextBox>
+                        <asp:Label ID="Lbltimeformat" runat="server" ForeColor="Red" Font-Size="XX-Small"
+                                   Text="Eg: 8AM-12PM"></asp:Label>*@
+
+                    <input type="text" id="Ddlpopuptime" value="AM-PM" maxlength="9" />
+                    <label id="Lbltimeformat" style="color: red; font-size: xx-small; display: block;">Eg: 8AM-12PM</label>
+                </td>
+            </tr>
+
+            <tr id="Kellypopuptime">
+                <td class="style1">
+                    Time
+                </td>
+                <td>
+                    @*<asp:TextBox ID="Ddlpopupkellytime" value="AM-PM" runat="server" MaxLength="9" Enabled="true" Visible="true"></asp:TextBox>
+                        <asp:Label ID="lblkellytimeformat" runat="server" ForeColor="Red" Font-Size="XX-Small"
+                                   Text="Eg: 8AM-12PM"></asp:Label>*@
+
+                    <input type="text" id="Ddlpopupkellytime" value="AM-PM" maxlength="9" />
+                    <label id="lblkellytimeformat" style="color:red;font-size:xx-small;display:block;">Eg: 8AM-12PM</label>
+                </td>
+            </tr>
+            <tr id="number">
+                <td class="style1">
+                    Contact Number
+                </td>
+                <td>
+                    @*<asp:TextBox ID="Txtpopupnumber" value="" MaxLength="12" Enabled="false" onkeypress="return isNumber(event)"
+                        runat="server"></asp:TextBox>*@
+
+                    <input type="text" id="Txtpopupnumber" maxlength="12" />
+                </td>
+            </tr>
+            <tr id="reason">
+                <td class="style1">
+                    Reason
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @*<textarea id="Txtpopupreason" maxlength="32" rows="4" runat="server" onchange="checkmsgtextarea(this)"
+                        onfocus="checkmsgtextarea(this)" onkeyup="checkmsgtextarea(this)" cols="20" name="S1"
+                        class="smstextarea" style="border-style: solid; border-color: #000000; white-space: normal;"> </textarea>*@
+
+                    <textarea id="Txtpopupreason" maxlength="32" rows="4" cols="20" name="S1"
+                              class="smstextarea" style="border-style: solid; border-color: #000000; white-space: normal;"> </textarea>
+                </td>
+            </tr>
+
+            <tr id="reasoncount">
+                <td align="left">
+                    @*<asp:TextBox ID="c" ReadOnly="true" name="chars_available" size="2" value="32"
+                                     runat="server" Width="20px" Visible="True" CssClass="textmedium"></asp:TextBox>
+                        <asp:Label ID="lblreasoncount" runat="server" Visible="True" Text="Characters Available"
+                                   CssClass="para"></asp:Label>*@
+                    <input type="text" id="Txtreasoncount" name="chars_available" value="32" class="textmedium" readonly style="width:20px;" />
+                    <label id="lblreasoncount" class="para">Characters Available</label>
+                    <br />
+                    <br />
+                </td>
+            </tr>
+
+            @*--store Name--*@
+
+            <tr id="StoreNamelbl">
+                <td class="style1">
+                    Store Name
+                </td>
+                <td colspan="2">
+                    @*<asp:TextBox ID="StoreNameText" runat="server" Height="30" MaxLength="30" Enabled="false" width="95%"></asp:TextBox>*@
+                    <input type="text" id="StoreNameText" maxlength="30" style="width:95%; height:30%;" />
+                </td>
+            </tr>
+
+            @*-- store Address 1--*@
+
+            <tr id="Address1lbl">
+                <td class="style1">
+                    Address 1
+                </td>
+                <td colspan="2">
+                    @*<asp:TextBox ID="Address1Text" runat="server" Enabled="false" width="95%" MaxLength="130" TextMode="MultiLine"></asp:TextBox>*@
+
+                    <textarea id="Address1Text" maxlength="130" style="width:95%;" disabled></textarea>
+                </td>
+            </tr>
+
+            @*-- store Address 2--*@
+
+            <tr id="Address2lbl" visible="false" runat="server">
+                <td class="style1">
+                    Address 2
+                </td>
+                <td colspan="2">
+                    @*<asp:TextBox ID="Address2Text" runat="server" Enabled="false" width="95%" TextMode="MultiLine" MaxLength="130">
+                        </asp:TextBox>*@
+
+                    <textarea id="Address2Text" maxlength="130" style="width:95%;" disabled></textarea>
+                </td>
+            </tr>
+
+            @*--Store PostCode--*@
+
+            <tr id="PostCodelbl">
+                <td class="style1">
+                    Post Code
+                </td>
+                <td>
+                    @*<asp:TextBox ID="PostCodeText" MaxLength="10" runat="server"></asp:TextBox>*@
+
+                    <input type="text" id="PostCodeText" maxlength="10" n />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
